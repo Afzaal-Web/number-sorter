@@ -5,8 +5,8 @@ const sortInputArray = (event) => {
   const inputValues = [
     ...document.getElementsByClassName("values-dropdown")
   ].map((dropdown) => Number(dropdown.value));
-  updateUI(inputValues.sort());
-
+  updateUI(inputValues.sort((a,b) => a - b)); // for ascending order
+// updateUI(inputValues.sort((a,b) => a - b)); for descending order
 }
 
 const updateUI = (array = []) => {
