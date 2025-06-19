@@ -5,7 +5,7 @@ const sortInputArray = (event) => {
   const inputValues = [
     ...document.getElementsByClassName("values-dropdown")
   ].map((dropdown) => Number(dropdown.value));
-  updateUI(selectionSort(inputValues));
+  updateUI(insertionSort(inputValues));
 
 }
 
@@ -43,14 +43,12 @@ const bubbleSort = (array) => {
 const selectionSort = (array) => {
   for (let i = 0; i < array.length; i++) {
     let minIndex = i;
-
     for (let j = i + 1; j < array.length; j++) {
       console.log(`Comparing ${array[j]} and ${array[minIndex]}`);
       if (array[j] < array[minIndex]) {
         minIndex = j;
       }
     }
-
     // Only swap if needed
     if (minIndex !== i) {
       console.log(`Swapping ${array[i]} and ${array[minIndex]}`);
@@ -60,13 +58,36 @@ const selectionSort = (array) => {
     } else {
       console.log(`No swap needed for index ${i} (${array[i]})`);
     }
-
     console.log(`After pass ${i + 1}:`, array);
     console.log('----------------------');
   }
-
   return array;
 };
+
+
+/* This algorithm works by building up a sorted array at the beginning of the list. It begins the sorted array
+ with the first element. Then it inspects the next element and swaps it backward into the sorted array until
+  it is in a sorted position, and so on */
+
+// Insertion Sort builds a sorted section by inserting each element
+// Insertion Sort starts from the second element, assuming the first is already sorted.
+// into its correct position among the already sorted elements.
+// It shifts larger values right to make space for the new element.
+
+const insertionSort = (array) => {
+  for (let i = 1; i < array.length; i++) {
+    const currValue = array[i];
+    let j = i - 1;
+
+    while (j >= 0 && array[j] > currValue) {
+      array[j + 1] = array[j];
+      j--;
+    }
+    array[j + 1] = currValue;
+  }
+return array;
+}
+
 
 
 sortButton.addEventListener("click", sortInputArray);
